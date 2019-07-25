@@ -10,8 +10,8 @@ const app = express()
 const users = require('./routes/api/users')
 
 // Server static assets if in production
-const publicPath = path.join(__dirname, './client/dist');
-app.use(express.static(publicPath));
+// const publicPath = path.join(__dirname, './client/dist');
+// app.use(express.static(publicPath));
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -30,6 +30,15 @@ require('./config/passport')(passport)
 app.use('/api/users', users)
 
 //Static serve not done
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/dist'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+    });
+}
 
 const port = process.env.PORT || 3000;
 
