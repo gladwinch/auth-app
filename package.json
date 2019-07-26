@@ -10,6 +10,9 @@
     "client": "npm run serve --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "engine": {
+    "node": "10.11.0"
+  },
   "author": "gladwin chhinchani",
   "license": "ISC",
   "dependencies": {
