@@ -22,7 +22,7 @@ const db = require('./config/keys').mongoURI
 
 mongoose.Promise = global.Promise;
 mongoose
-    .connect(db, 
+    .connect('mongodb://gladwinc:gladwinc8249@ds153947.mlab.com:53947/my-todo',
         {useNewUrlParser: true});
          mongoose.connection.once('open', function(){
          console.log('Conection has been made!');
