@@ -10,7 +10,7 @@
     "client": "npm run serve --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "engine": {
+  "engines": {
     "node": "10.11.0"
   },
   "author": "gladwin chhinchani",
