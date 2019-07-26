@@ -22,9 +22,13 @@ const db = require('./config/keys').mongoURI
 
 mongoose.Promise = global.Promise;
 mongoose
-    .connect(db, { useNewUrlParser: true })
-    .then(() => console.log("Mongodb Connected"))
-    .catch(err => console.log("Error: ",err))
+    .connect(db, 
+        {useNewUrlParser: true});
+         mongoose.connection.once('open', function(){
+         console.log('Conection has been made!');
+             }).on('error', function(error){
+          console.log('Error is: ', error);
+        });
 
 app.use(passport.initialize())
 require('./config/passport')(passport)
