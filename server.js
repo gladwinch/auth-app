@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 const db = require('./config/keys').mongoURI
 
 mongoose
-    .connect('mongodb://gladwinc:gladwinc8249@ds153947.mlab.com:53947/my-todo')
+    .connect(db)
     .then(() => console.log("Mongodb Connected"))
     .catch(err => console.log("Error: ",err))
 
@@ -45,10 +45,10 @@ if (process.env.NODE_ENV === 'production') {
     console.log("inside development")
 
     // Set static folder
-    app.use(express.static('client/dist'));
+    app.use(express.static('public'));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
     });
 }
 
