@@ -10,10 +10,8 @@ const app = express()
 const users = require('./routes/api/users')
 
 // Server static assets if in production
-app.use(express.static(__dirname + 'dist'));
-app.get('/.*/', (req, res) => {
-    res.sendFile(path.resolve(__dirname + '/dist/index.html'));
-});
+// app.use(express.static(__dirname + 'dist'));
+
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,7 +20,7 @@ app.use(bodyParser.json())
 const db = require('./config/keys').mongoURI
 
 mongoose
-    .connect(db)
+    .connect('mongodb://gladwinc:gladwinc8249@ds153947.mlab.com:53947/my-todo')
     .then(() => console.log("Mongodb Connected"))
     .catch(err => console.log("Error: ",err))
 
@@ -33,16 +31,29 @@ app.use('/api/users', users)
 
 // Static serve not done
 // Server static assets if in production
-// if (process.env.NODE_ENV === 'production') {
-//     // Set static folder
-//     app.use(express.static('client/dist'));
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/dist'));
 
-//     app.get('/.*/', (req, res) => {
-//         res.sendFile(path.resolve(__dirname + '/client/dist/index.html'));
-//     });
-// } else {
-//     // Server static assets if in production
-// }
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+    });
+
+    console.log("inside production::")
+} else {
+    console.log("inside development")
+
+    // Set static folder
+    app.use(express.static('client/dist'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
+    });
+}
+
+// 
+
 
 const port = process.env.PORT || 3000;
 
