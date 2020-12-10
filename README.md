@@ -1,5 +1,6 @@
 # auth-app
-fullstack application with node expess server with vue for client side
+fullstack application with node expess server, vue
+
 
 try 
 https://gladwin-app.herokuapp.com/
